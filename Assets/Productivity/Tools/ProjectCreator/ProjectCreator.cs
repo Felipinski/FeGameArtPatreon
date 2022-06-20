@@ -7,7 +7,7 @@ using UnityEngine;
 public class ProjectCreator : MonoBehaviour
 {
     private static string projectHubPath = "C:\\Users\\felip\\Documents\\Unity Projects\\FeGameArt\\FeGameArt-Patreon\\Assets\\Project\\01-Patreon";
-    private static string sourcePath = "C:\\Users\\felip\\Documents\\Unity Projects\\FeGameArt\\FeGameArt-Patreon\\Assets\\Project\\01-Patreon\\00-Base";
+    private static string sourcePath = "C:\\Users\\felip\\Documents\\Unity Projects\\FeGameArt\\FeGameArt-Patreon\\Assets\\Project\\01-Patreon\\00-Template";
     private static string targetPath = "C:\\Users\\felip\\Documents\\Unity Projects\\FeGameArt\\FeGameArt-Patreon\\Assets\\Project\\01-Patreon\\00-";
 
     public static void CopyFolder(string folderName)
@@ -23,17 +23,9 @@ public class ProjectCreator : MonoBehaviour
 
         AssetDatabase.Refresh();
 
-        var files = newContent.GetFiles();
+        var files = newContent.GetDirectories();
 
-        foreach (var content in files)
-        {
-            if(content.Name.Contains("Scene"))
-            {
-                FileInfo file = new FileInfo(content.FullName);
 
-                //file.MoveTo(file.Directory.FullName + "\\" + newName);
-            }
-        }
 
         AssetDatabase.Refresh();
     }

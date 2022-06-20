@@ -11,17 +11,33 @@ public class ProjectCreatorWindow : EditorWindow
     [MenuItem("FeGameArt/Tools/ProjectCreator")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(ProjectCreatorWindow));
+        GetWindow(typeof(ProjectCreatorWindow), true, "Project template window");
     }
 
     void OnGUI()
     {
-        EditorGUILayout.BeginVertical("Helpbox");// ("Project name", "");
+        //Create label style
+        GUIStyle labelStyle = new GUIStyle();
 
-        EditorGUILayout.LabelField("New project");
+        labelStyle.fontSize = 17;
+        labelStyle.normal.textColor = new Color(0.7f, 0.7f, 0.7f, 1.0f);
+        labelStyle.alignment = TextAnchor.MiddleCenter;
 
+        //Create title group
+        EditorGUILayout.BeginVertical("Helpbox");
+        EditorGUILayout.Space(2);
+        EditorGUILayout.LabelField("Template", labelStyle);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.Space(2);
+
+        //Create the name input field
+        EditorGUILayout.BeginVertical("Helpbox");
         projectName = EditorGUILayout.TextField("Project name", projectName);
 
+        EditorGUILayout.Space(2);
+
+        //Draw the button and define a method that will be called when it's clicked
         if (GUILayout.Button("Create"))
         {
             ProjectCreator.CopyFolder(projectName);
