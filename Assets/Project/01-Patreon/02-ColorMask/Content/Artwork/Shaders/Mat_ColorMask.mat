@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mat_ColorMask
+  m_Shader: {fileID: 4800000, guid: 11cd309d6f508dd4a97e2fb43cfb09c5, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ColorMask:
+        m_Texture: {fileID: 2800000, guid: 3178e2623d524564f861174e7e685c00, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 05a0e85eb3708c34f8810f0024d02bba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _BChannel: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
+    - _GChannel: {r: 1, g: 1, b: 1, a: 1}
+    - _RChannel: {r: 0.40184438, g: 0.3503026, b: 0.6037736, a: 1}
+  m_BuildTextureStacks: []
