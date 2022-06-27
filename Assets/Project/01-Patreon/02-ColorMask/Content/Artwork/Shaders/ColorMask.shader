@@ -5,7 +5,7 @@ Shader "FeGameArt/Patreon/ColorMask"
         [Header(____Textures____)]
         [Space(5)]
         _MainTex("Texture", 2D) = "white" {}
-        _ColorMask("Color Mask", 2D) = "white" {}
+        _RGBMask("RGB Mask", 2D) = "white" {}
 
         [Space(10)]
 
@@ -45,17 +45,31 @@ Shader "FeGameArt/Patreon/ColorMask"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
-            sampler2D _ColorMask;
+            sampler2D _RGBMask;
 
             float4 _RChannel;
             float4 _GChannel;
             float4 _BChannel;
 
-            void colorMask(inout float4 originalColor, float4 colorMask)
+            float4 applyRGBMask(float4 originalColor, float4 colorMask)
             {
-                originalColor = lerp(originalColor, colorMask.r * _RChannel, colorMask.r);
-                originalColor = lerp(originalColor, colorMask.g * _GChannel, colorMask.g);
-                originalColor = lerp(originalColor, colorMask.b * _BChannel, colorMask.b);
+                //Get custom color applied to mask
+                float4 multipliedColor = colorMask.rrrr * _RChannel + 
+                    colorMask.gggg * _GChannel + 
+                    colorMask.bbbb * _BChannel;
+
+                //Check if the pixel is masked.
+                //If there is value in any color channel, 
+                //it means the pixel is masked
+                float isMaskedPixel = colorMask.r + colorMask.g + colorMask.b;
+
+                //Based in the isMaskedPixel, lerp between
+                //the original color and the multiplied color
+                //to keep the main texture that is not affected
+                //by our mask
+                float4 finalColor = lerp(originalColor, multipliedColor, isMaskedPixel);
+                                
+                return finalColor;
             }
 
             v2f vert (appdata v)
@@ -72,9 +86,9 @@ Shader "FeGameArt/Patreon/ColorMask"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed4 colMask = tex2D(_ColorMask, i.uv);
+                fixed4 colMask = tex2D(_RGBMask, i.uv);
 
-                colorMask(col, colMask);
+                col = applyRGBMask(col, colMask);
 
                 diffuseLight(col, i.worldNormal);
 
